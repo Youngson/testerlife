@@ -9,7 +9,7 @@ create file : C:/Users/Raymond/git/testerlife/interface/auth/views.py
 create time :2016年11月1日
 '''
 
-from flask import render_template , request, current_app
+from flask import render_template , request, jsonify
 from flask_restful import Resource
 
 from interface.util.result.result import result
@@ -38,12 +38,12 @@ class login(Resource):
         user = User.query.filter_by(username=args.get('username')).first()
         if user and user.userpassword == args.get('password'):
             login_user(user, True)
-            return result.success()
-        return result.error()
+            return jsonify(result.success())
+        return jsonify(result.error())
 
 @api.resource('/logout')
 class logout(Resource):
     @login_required
     def get(self):
         logout_user()
-        return result.success()
+        return jsonify(result.success())

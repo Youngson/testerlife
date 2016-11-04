@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from logging import Formatter, DEBUG
 from logging.handlers import RotatingFileHandler
 from flask_login import LoginManager, login_user, login_required  , logout_user , current_user
+from flask_bcrypt import Bcrypt
 from . import config
 
 
@@ -15,7 +16,7 @@ login = LoginManager(app)
 login.session_protection = "strong"
 login.login_view = 'auth.index'
 login.login_message = '请登入账号再进行下一步操作!'
-
+bcrypt = Bcrypt(app)
 """app.logger is project logging module
 """
 
