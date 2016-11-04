@@ -1,12 +1,11 @@
-from flask import Flask , redirect
-from flask_restful import Api, Resource
+from flask import Flask
+from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_bcrypt import Bcrypt
 from logging import Formatter, DEBUG
 from logging.handlers import RotatingFileHandler
-from flask_login import LoginManager, login_user, login_required  , logout_user , current_user
-from flask_bcrypt import Bcrypt
 from . import config
-
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -29,8 +28,9 @@ handler.setLevel(DEBUG)
 app.logger.addHandler(handler)
 
 from .auth import auth
+
 app.register_blueprint(auth, url_prefix='/auth')  # auth module blueprint
 
 from .index import index
-app.register_blueprint(index, url_prefix='/index')  # index module blueprint
 
+app.register_blueprint(index, url_prefix='/index')  # index module blueprint

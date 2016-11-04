@@ -11,11 +11,10 @@ create time :2016年11月1日
 
 from flask import render_template
 from flask_login import login_required
-from . import api , index
+from . import api, index
 
 
-@index.route('/' , methods=['GET', 'POST'])
+@index.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
     return render_template('index.html')
-

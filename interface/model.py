@@ -1,4 +1,4 @@
-from flask_login import  UserMixin
+from flask_login import UserMixin
 from . import db, bcrypt
 
 db.create_all()
@@ -26,11 +26,9 @@ class User(db.Model, UserMixin):
     def password(self):
         raise AttributeError('密码不是一个可读字段')
 
-
     @password.setter
     def password(self, _password):
         self.userpassword = bcrypt.generate_password_hash(_password)
-
 
     def verify_password(self, _password):
         return bcrypt.check_password_hash(self.userpassword, _password)

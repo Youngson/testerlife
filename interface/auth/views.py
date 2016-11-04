@@ -9,14 +9,13 @@ create file : C:/Users/Raymond/git/testerlife/interface/auth/views.py
 create time :2016年11月1日
 '''
 
-from flask import render_template , request, jsonify
+from flask import render_template, request, jsonify
 from flask_restful import Resource
-
+from flask_login import login_user, logout_user, login_required
 from interface.util.result.result import result
-from . import api , auth
-from .. import login, login_user, login_required , current_user , logout_user
+from . import api, auth
+from .. import login
 from ..model import User
-
 
 
 @login.user_loader
@@ -27,9 +26,11 @@ def load_user(user_id):
     except:
         return None
 
-@auth.route('/' , methods=['GET', 'POST'])
+
+@auth.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('login.html')
+
 
 @api.resource('/login')
 class login(Resource):
@@ -40,6 +41,7 @@ class login(Resource):
             login_user(user, True)
             return jsonify(result.success())
         return jsonify(result.error())
+
 
 @api.resource('/logout')
 class logout(Resource):
