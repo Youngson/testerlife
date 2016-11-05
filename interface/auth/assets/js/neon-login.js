@@ -96,7 +96,8 @@ var neonLogin = neonLogin || {};
 									// Redirect to login page
 									setTimeout(function()
 									{
-										var redirect_url = baseurl+'/index';
+										var url = response.url;
+										var redirect_url = baseurl+url;
 										
 										if(response.redirect_url && response.redirect_url.length)
 										{

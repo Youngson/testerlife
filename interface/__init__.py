@@ -1,4 +1,4 @@
-from flask import Flask,redirect
+from flask import Flask, redirect
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -30,8 +30,11 @@ app.logger.addHandler(handler)
 from .auth import auth
 
 app.register_blueprint(auth, url_prefix='/auth')  # auth module blueprint
+from .admin import admin
 
+app.register_blueprint(admin, url_prefix='/admin')  # admin module blueprint
 from .index import index
 
 app.register_blueprint(index, url_prefix='/index')  # index module blueprint
 app.add_url_rule('/', None, lambda x='/index': redirect(x))
+# db.create_all()
