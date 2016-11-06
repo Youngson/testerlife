@@ -34,7 +34,7 @@ from .auth import auth
 app.register_blueprint(auth, url_prefix='/auth')  # auth module blueprint
 from .admin import admin
 
-app.register_blueprint(admin, url_prefix='/admin')  # admin module blueprint
+app.register_blueprint(admin, url_prefix='/admin',static_url_path=app.static_url_path + '/bootstrap')  # admin module blueprint
 from .index import index
 
 app.register_blueprint(index, url_prefix='/index')  # index module blueprint
