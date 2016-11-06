@@ -15,13 +15,13 @@ from flask_login import login_user, logout_user, login_required
 from interface.util.result.result import result
 from . import api, auth
 from .. import login
-from ..model import User,User_Auth
+from ..model import User,UserAuth
 
 
 @login.user_loader
 def load_user(user_id):
     try:
-        user = User_Auth.query.get(int(user_id))
+        user = UserAuth.query.get(int(user_id))
         return user
     except:
         return None
@@ -36,10 +36,10 @@ def index():
 class login(Resource):
     def post(self):
         args = request.form
-        _user_auth = User_Auth.query.filter_by(identifier=args.get('username')).first()
-        if _user_auth and _user_auth.credential == args.get('password'):
-            login_user(_user_auth, True)
-            url = '/admin/' if _user_auth.user.role.name=='Admin' else '/index/'
+        user = UserAuth.query.filter_by(identifier=args.get('username')).first()
+        if user is not None and user.verify_password(args.get('password')):
+            login_user(user)
+            url = '/admin/' if user.user.role.name=='Admin' else '/index/'
             return jsonify(result.success(url))
         return jsonify(result.error())
 

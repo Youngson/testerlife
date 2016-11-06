@@ -1,0 +1,34 @@
+{% extends '_base.html' %}
+
+{% block main_right %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12"><a href="{{ url_for('admin.user_add') }}">添加用户</a></div>
+        <div class="col-md-12 col-sm-12">
+            <table>
+                <tr>
+                    <td>#</td>
+                    <td>ID</td>
+                    <td>nickname</td>
+                    <td>avatar</td>
+                    <td>role</td>
+                    <td>操作</td>
+                </tr>
+                {% for foo in rs %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ foo.id }}</td>
+                        <td><a href="#">{{ foo.nickname }}</a></td>
+                        <td>{{ foo.avatar }}</td>
+                        <td>{{ foo.role.name }}</td>
+                        <td>
+                            <a href="{{ url_for('admin.user_auth_add',id=foo.id) }}">添加账号</a>
+                            <a href="{{ url_for('admin.user_auth_add',id=foo.id) }}">编辑</a>
+                            <a href="{{ url_for('admin.user_del',id=foo.id) }}">删除</a>
+                            <a href="{{ url_for('admin.user_auth_add',id=foo.id) }}">授权</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

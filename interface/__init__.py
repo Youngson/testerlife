@@ -1,5 +1,6 @@
 from flask import Flask, redirect
 from flask_restful import Api
+from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
@@ -10,6 +11,7 @@ from . import config
 app = Flask(__name__)
 app.config.from_object(config)
 api = Api(app)
+bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 login = LoginManager(app)
 login.session_protection = "strong"
