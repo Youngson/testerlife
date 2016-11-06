@@ -6,7 +6,7 @@
 from flask import Blueprint
 from flask_restful import Api
 
-auth = Blueprint('auth', __name__, template_folder='templates', static_folder='assets')
+auth = Blueprint('auth', __name__)# template_folder='templates', static_folder='assets')
 api = Api(auth)
 
 from . import views

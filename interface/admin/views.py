@@ -26,9 +26,9 @@ def user():
     user = User.query.all()
     return render_template('user.html', rs=user)
 
-@admin.route('/user-edit', methods=['GET', 'POST'])
+@admin.route('/user-edit/<int:uid>', methods=['GET', 'POST'])
 @login_required
-def user_edit():
+def user_edit(uid):
     uid = request.args.get('uid')
     user = User.query.get_or_404(uid) if uid is not None else User()
     user_auth = UserAuth.query.filter_by(user_id=uid).all() #if uid is not None else None
