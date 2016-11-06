@@ -2,7 +2,7 @@
 
 {% block page_content %}
     <div class="row">
-        <div class="col-md-12 col-sm-12"><a href="{{ url_for('admin.user_add') }}">添加用户</a></div>
+        <div class="col-md-12 col-sm-12"><a href="{{ url_for('admin.user_edit') }}">添加用户</a></div>
         <div class="col-md-12 col-sm-12">
             <table>
                 <tr>
@@ -21,10 +21,10 @@
                         <td>{{ foo.avatar }}</td>
                         <td>{{ foo.role.name }}</td>
                         <td>
-                            <a href="{{ url_for('admin.user_auth_add',id=foo.id) }}">添加账号</a>
-                            <a href="{{ url_for('admin.user_auth_add',id=foo.id) }}">编辑</a>
-                            <a href="{{ url_for('admin.user_del',id=foo.id) }}">删除</a>
-                            <a href="{{ url_for('admin.user_auth_add',id=foo.id) }}">授权</a>
+                            <a href="{{ url_for('admin.user_auth_edit',uid=foo.id) }}">添加账号</a>
+                            <a href="{{ url_for('admin.user_edit',uid=foo.id) }}">编辑</a>
+                            <a href="{{ url_for('admin.user_del',uid=foo.id) }}">删除</a>
+                            <a href="{{ url_for('admin.user_auth_edit',uid=foo.id) }}">授权</a>
                         </td>
                     </tr>
                 {% endfor %}

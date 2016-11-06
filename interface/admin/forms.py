@@ -29,9 +29,3 @@ class UserAuthForm(FlaskForm):
     password = PasswordField()
     submit = SubmitField('Submit')
 
-
-class EditUserForm(FlaskForm):
-    user = FormField(UserForm)
-    user_auth = FormField(UserAuthForm)
-    submit = SubmitField('Submit')
-

@@ -7,5 +7,46 @@
             <h3>Edit Form</h3>
             {{ wtf.quick_form(form) }}
         </div>
+    {% if rs is defined %}
+        <div class="col-md-6">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title">账号清单</div>
+
+                    <div class="panel-options">
+                        <a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+                        <a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>账号ID</th>
+                          <th>用户昵称</th>
+                          <th>账号类型</th>
+                          <th>账号名称</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for foo in rs %}
+                        <tr>
+                          <td>{{ loop.index }}</td>
+                          <td>{{ foo.id }}</td>
+                          <td>{{ foo.user.nickname }}</td>
+                          <td>{{ foo.identity_type }}</td>
+                          <td>{{ foo.identifier }}</td>
+                          <td><a href="{{ url_for('admin.user_auth_edit',uid=request.args.get('uid'),uaid=foo.id) }}">编辑</a>
+                              <a href="{{ url_for('admin.user_auth_del',uid=request.args.get('uid'),uaid=foo.id) }}">删除</a></td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     </div>
 {% endblock %}
