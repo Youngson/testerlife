@@ -6,4 +6,6 @@ bcrypt
 Flask-Bcrypt
 Flask-RESTful>=0.3.5
 Flask-SQLAlchemy>=2.1
+Flask-Alembic
 PyMySQL>=0.7.6
+flask_script

@@ -9,11 +9,13 @@
 from flask import Flask, redirect
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
+from flask_alembic import Alembic
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from . import config
 
 db = SQLAlchemy()
+alembic = Alembic()
 bootstrap = Bootstrap()
 login = LoginManager()
 login.session_protection = "strong"
@@ -26,6 +28,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(config)
     db.init_app(app)
+    alembic.init_app(app)
     bootstrap.init_app(app)
     login.init_app(app)
     bcrypt.init_app(app)
@@ -36,10 +39,10 @@ def create_app():
     app.register_blueprint(auth_blueprint, url_prefix='/auth')  # auth module blueprint
     from .admin import admin as admin_blueprint
     app.register_blueprint(admin_blueprint, url_prefix='/admin')  # admin module blueprint
-    from .index import index as index_blueprint
-    app.register_blueprint(index_blueprint, url_prefix='/index')  # index module blueprint
-    app.add_url_rule('/', None, lambda x='/index': redirect(x))
+    from .main import main as main_blueprint
+    app.register_blueprint(main_blueprint)  # index module blueprint
 
+    print(app.url_map)
     return app
 
 
