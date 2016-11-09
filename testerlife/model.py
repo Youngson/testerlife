@@ -1,14 +1,14 @@
 from flask_login import UserMixin
-from . import db, bcrypt
+from . import db, bcrypt,login
 
 
-class Role(db.Model):
-    __tablename__ = 'roles'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True)
-    default = db.Column(db.Boolean, default=False, index=True)
-    permissions = db.Column(db.Integer)
-    users = db.relationship('User', backref='role', lazy='dynamic')
+@login.user_loader
+def load_user(user_id):
+    try:
+        user = UserAuth.query.get(int(user_id))
+        return user
+    except:
+        return None
 
 
 class User(db.Model):
@@ -52,3 +52,12 @@ class UserAuth(db.Model, UserMixin):
 
     def __repr__(self):
         return '<User_Auth %r>' % self.identifier
+
+
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    default = db.Column(db.Boolean, default=False, index=True)
+    permissions = db.Column(db.Integer)
+    users = db.relationship('User', backref='role', lazy='dynamic')

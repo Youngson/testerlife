@@ -99,3 +99,4 @@ test/
 logs/
 /data/
 /testerlife/templates/neon/
+testerlife/migrations/
